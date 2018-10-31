@@ -35,6 +35,7 @@ class ImageViewModel:Cacheble {
                 guard error == nil else {
                     DispatchQueue.main.async {
                         self.onImageLoaded(self.imageModel,error?.description())
+                        self.imageModel.image = nil
                     }
                     return
                 }
@@ -43,6 +44,7 @@ class ImageViewModel:Cacheble {
                     self.imageModel.image = UIImage(data: data)
                     DispatchQueue.main.async {
                         self.onImageLoaded(self.imageModel,nil)
+                        self.imageModel.image = nil
                     }
                 }
             }
@@ -68,6 +70,7 @@ class ImageViewModel:Cacheble {
             self.imageModel.image = UIImage(data: imageData)
             DispatchQueue.main.async {
                 self.onImageLoaded(self.imageModel,nil)
+                self.imageModel.image = nil
             }
         }
     }

@@ -18,12 +18,12 @@ class ImageDetailVC: UIViewController, UIScrollViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = ImageViewModel(onImageLoaded: { (model, error) in
+        viewModel = ImageViewModel(onImageLoaded: {[weak self] (model, error) in
             guard error == nil else {
                 return
             }
             if let image = model.image {
-                self.imageView.image = image
+                self?.imageView.image = image
             }
         })
         self.loadImage(url: items[position])
@@ -102,5 +102,6 @@ class ImageDetailVC: UIViewController, UIScrollViewDelegate{
             
         }
     }
+    
 
 }
