@@ -68,16 +68,25 @@ class ViewController: UIViewController,UITableViewDelegate, UISearchBarDelegate 
             self.imageTableView.reloadData()
         }
     }
-
+    
     @IBAction func prepaForUnwind (segue:UIStoryboardSegue) {
         
     }
-    
-        override func unwind(for unwindSegue: UIStoryboardSegue, towards subsequentVC: UIViewController) {
-            let segue = UnwindScaleSegue(identifier: unwindSegue.identifier, source: unwindSegue.source, destination: unwindSegue.destination) {
-    
-            }
-            segue.perform()
+    override func unwind(for unwindSegue: UIStoryboardSegue, towards subsequentVC: UIViewController) {
+        let segue = UnwindScaleSegue(identifier: unwindSegue.identifier, source: unwindSegue.source, destination: unwindSegue.destination) {
+            
         }
+        segue.perform()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        if !CheckInternet.Connection(){
+            self.Alert(Message: "Your Device is not connected with internet")
+        }
+    }
+    func Alert (Message: String){
+        let alert = UIAlertController(title: "Alert", message: Message, preferredStyle: UIAlertController.Style.alert)
+//        alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 }
 

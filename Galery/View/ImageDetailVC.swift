@@ -102,4 +102,5 @@ class ImageDetailVC: UIViewController, UIScrollViewDelegate{
             
         }
     }
+
 }
