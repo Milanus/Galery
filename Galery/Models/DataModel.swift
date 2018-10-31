@@ -12,5 +12,6 @@ struct DataModel {
     var title:String?
     var image:UIImage?
     var dimension:String?
+    var imagePath:String?
 }
 

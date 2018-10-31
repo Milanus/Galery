@@ -35,15 +35,18 @@ class TableCellVieWModel {
     let dimensions:String?
     var image:UIImage?
     let description:String?
+    var imagePath:String?
     
-    init(dimensions:String, image:UIImage?,description:String) {
+    init(dimensions:String, image:UIImage?,description:String,imagePath:String?) {
         self.dimensions = dimensions
         self.image = image
         self.description = description
+        self.imagePath = imagePath
     }
     init (dataModel:DataModel) {
         self.dimensions = dataModel.dimension
         self.image = dataModel.image
         self.description = dataModel.title
+        self.imagePath = dataModel.imagePath
     }
 }

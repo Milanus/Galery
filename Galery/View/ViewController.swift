@@ -22,17 +22,31 @@ class ViewController: UIViewController,UITableViewDelegate, UISearchBarDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         listViewModel = ListViewModel()
+        // setting table view with data from download
         dataSource = TableViewDataSource(cellIntetifier: celldentifier, items: self.listViewModel.sourceViewModel, configurationCell: { (cell, viewModel) in
             cell.descriptLabel.text = viewModel.description
             cell.dimensionLabel.text = viewModel.dimensions
             cell.mainImageView.image = viewModel.image
-
         })
         self.populateListView(query: "iphone a ipad ")
         imageTableView.delegate = self
         imageTableView.dataSource = dataSource
         searchBar.delegate = self
-      
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "imageDetail" {
+            if let position = imageTableView.indexPathForSelectedRow?.row {
+                let controller = segue.destination as! ImageDetailVC
+                let tableViewModels = self.dataSource.getItems() as [TableCellVieWModel]
+                print("table model count \(tableViewModels.count)")
+                let urls = tableViewModels.map {
+                    $0.imagePath!
+                }
+                controller.items = urls
+                controller.position = position
+            }
+            
+        }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -40,7 +54,7 @@ class ViewController: UIViewController,UITableViewDelegate, UISearchBarDelegate 
             return
         }
         searchText = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-        if searchText.count > 3 {
+        if searchText.count >= 3 {
            self.populateListView(query: searchText)
         }
     }
@@ -55,6 +69,15 @@ class ViewController: UIViewController,UITableViewDelegate, UISearchBarDelegate 
         }
     }
 
-
+    @IBAction func prepaForUnwind (segue:UIStoryboardSegue) {
+        
+    }
+    
+        override func unwind(for unwindSegue: UIStoryboardSegue, towards subsequentVC: UIViewController) {
+            let segue = UnwindScaleSegue(identifier: unwindSegue.identifier, source: unwindSegue.source, destination: unwindSegue.destination) {
+    
+            }
+            segue.perform()
+        }
 }
 

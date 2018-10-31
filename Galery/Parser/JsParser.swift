@@ -11,11 +11,11 @@ import UIKit
 struct JsParser {
 
 }
-
+// Seznam json repozitary
 struct SeznamRepo:Codable {
-    let htmlCode:String
-    
+    let html:String
+    //key
     private enum keys:String, CodingKey{
-        case html;
+        case html = "html";
     }
 }

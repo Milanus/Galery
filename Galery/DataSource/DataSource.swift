@@ -9,15 +9,16 @@
 import UIKit
 
 class DataSource {
-    
+    // class that manage data for view model
     fileprivate var webService:WebService!
     fileprivate var complete:completeHandler!
     fileprivate var urlPath:String!
     fileprivate var htmlParser:HtmlParse!
     fileprivate var source:[HtmlSource] = [HtmlSource]()
     fileprivate var dataModel:DataModel!
+    // watch if observer is active
     fileprivate var isAlive = false
-    
+    // initializing
     init(urlPath:String ,complete:@escaping completeHandler) {
         self.webService = WebService()
         self.complete = complete
@@ -25,10 +26,11 @@ class DataSource {
         self.htmlParser = HtmlParse()
         self.dataModel = DataModel()
     }
-    
+    // starts request
     func start () {
-        self.makeRequest()
+        self.makeJSonRequest()
     }
+    // observer watches count of enities for downoload if count get to 0 observer will release all allocated objects
     var repeatObserver = 0 {
         didSet {
             if repeatObserver > 0 {
@@ -39,26 +41,31 @@ class DataSource {
             }
         }
     }
-    fileprivate func makeRequest() {
+    // gets json data from url
+    fileprivate func makeJSonRequest() {
         self.webService.dataRequest(path: self.urlPath) {[weak self] (data, error) in
             guard error == nil else {
                 return
             }
             if let data = data {
-                self?.htmlParser = HtmlParse()
-                self?.htmlParser.parseHtml(htmlData: data, htmlHandler: { (sources, error) in
-                    if let sources = sources {
-                        self?.source = sources
-                        self?.repeatObserver = sources.count
-                    }
-                })
+                let decoder = JSONDecoder()
+                // get html string fro
+                if let htmlFromJson = try? decoder.decode(SeznamRepo.self, from: data) {
+                    self?.htmlParser = HtmlParse()
+                    self?.htmlParser.parseHtml(html: htmlFromJson.html, htmlHandler: { (sources, error) in
+                        if let sources = sources {
+                            self?.source = sources
+                            self?.repeatObserver = sources.count
+                        }
+                    })
+                }
             }
         }
     }
     
     fileprivate func fetchImage () {
         let position = self.repeatObserver - 1
-        guard let imagePath = self.source[position].imagePath else {
+        guard let imagePath = self.source[position].thumbnailPath else {
             self.repeatObserver = position
             return
         }
@@ -79,11 +86,14 @@ class DataSource {
             return
         }
         if let data = imageDate {
-            if let height = source[position].heigth, let width = source[position].width {
-                 dataModel.dimension = "\(width)x\(height)"
+            if let size = source[position].size {
+                dataModel.dimension = size
             }
             dataModel.image = UIImage(data: data)
-            dataModel.title = source[position].description
+            dataModel.title = source[position].pageUrl
+            if let imagePath = source[position].imagePath {
+                dataModel.imagePath = imagePath
+            }
             self.complete(dataModel,nil)
         }
     }

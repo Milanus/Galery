@@ -8,30 +8,34 @@
 
 import UIKit
 import SwiftSoup
-
+// class parse html
 class HtmlParse {
-    func parseHtml (htmlData:Data, htmlHandler:@escaping ([HtmlSource]?,String?)->()) {
+    // parameter html as data forma and callback
+    func parseHtml (html:String?, htmlHandler:@escaping ([HtmlSource]?,String?)->()) {
         do {
-            if let html = String(data: htmlData, encoding: .utf8) {
-                print("is main \(Thread.isMainThread)")
-                let doc:Document = try SwiftSoup.parse(html)
-                let srcs:Elements = try doc.select("img[src]")
-                var htmlSource:HtmlSource!
-                let srcsDetail: [HtmlSource] = srcs.array().map { src in
-                    htmlSource = HtmlSource()
-                    if let imagePath = try? src.attr("src").description {
-                        htmlSource.imagePath = String(htmlEncodedString: imagePath).replacaHtmlFromString()
-                    }
-                    if let height = try? src.attr("height") {htmlSource.heigth = height.replacaHtmlFromString()}
-                    if let width = try? src.attr("width") {htmlSource.width = width.replacaHtmlFromString()}
-                    if let desc = try? src.attr("alt") {htmlSource.description = desc.replacaHtmlFromString()}
+            // check if string not nil
+            if let html = html {
+                //  parsing html
+                let document:Document = try SwiftSoup.parse(html)
+                // elements with class image
+                let imageElements:Elements = try document.getElementsByClass("image")
+                // creating from html data for app
+                let htmlModel:[HtmlSource] = imageElements.array().map { imageElement in
+                    var htmlSource = HtmlSource()
+                    htmlSource.pageUrl = try? imageElement.getElementsByClass("url").text()
+                    htmlSource.size = try? imageElement.getElementsByClass("size").text()
+                    let element = try! imageElement.select("a").get(0)
+                    htmlSource.imagePath = try? element.attr("data-elm")
+                    htmlSource.thumbnailPath = try? element.select("img[src]").attr("src")
                     return htmlSource
                 }
-                htmlHandler(srcsDetail,nil)
-//                print("all images \(Array(srcsStringArray))")
+                //callback with data
+                 htmlHandler(htmlModel,nil)
             }
         }catch Exception.Error(_, let message){
+            // if error while parsing html handle error
             htmlHandler(nil,message)
+            print(message)
         } catch {
             htmlHandler(nil,error.localizedDescription)
         }

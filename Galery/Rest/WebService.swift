@@ -10,9 +10,9 @@ import Foundation
 import SwiftSoup
 
 struct WebService {
-    
+    // status kode ok
     fileprivate static let statusOK:Int = 200
-    
+    // makes data request for server
     func dataRequest (path:String, handleRequest:@escaping (Data?,SessionError?) -> ()) {
         guard let url = URL(string: path) else {
             handleRequest(nil,SessionError(errorType: .badURL, errorMsg: nil))

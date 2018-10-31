@@ -25,6 +25,10 @@
 		F14201822187257300A09FE5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14201812187257300A09FE5 /* Extensions.swift */; };
 		F1420184218743EE00A09FE5 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1420183218743EE00A09FE5 /* DataModel.swift */; };
 		F142018621877D6200A09FE5 /* SearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = F142018521877D6200A09FE5 /* SearchQuery.swift */; };
+		F14201882189D0A400A09FE5 /* ImageDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14201872189D0A400A09FE5 /* ImageDetailVC.swift */; };
+		F142018A2189DEFC00A09FE5 /* ImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14201892189DEFC00A09FE5 /* ImageViewModel.swift */; };
+		F142018C2189E1D400A09FE5 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F142018B2189E1D400A09FE5 /* ImageModel.swift */; };
+		F142018F218A02E200A09FE5 /* ZoomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F142018E218A02E200A09FE5 /* ZoomSegue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +54,10 @@
 		F14201812187257300A09FE5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F1420183218743EE00A09FE5 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		F142018521877D6200A09FE5 /* SearchQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQuery.swift; sourceTree = "<group>"; };
+		F14201872189D0A400A09FE5 /* ImageDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailVC.swift; sourceTree = "<group>"; };
+		F14201892189DEFC00A09FE5 /* ImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewModel.swift; sourceTree = "<group>"; };
+		F142018B2189E1D400A09FE5 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
+		F142018E218A02E200A09FE5 /* ZoomSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSegue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +142,8 @@
 				F142010621843B0500A09FE5 /* ViewController.swift */,
 				F142012121859BCD00A09FE5 /* TableViewDataSource.swift */,
 				F14201232185A1E500A09FE5 /* TableViewCell.swift */,
+				F14201872189D0A400A09FE5 /* ImageDetailVC.swift */,
+				F142018D218A02AC00A09FE5 /* ZoomSegue */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -142,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				F14201262185B1D000A09FE5 /* ListViewModel.swift */,
+				F14201892189DEFC00A09FE5 /* ImageViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -151,6 +162,7 @@
 			children = (
 				F14201292185B2EB00A09FE5 /* HtmlSource.swift */,
 				F1420183218743EE00A09FE5 /* DataModel.swift */,
+				F142018B2189E1D400A09FE5 /* ImageModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -169,6 +181,14 @@
 				F14201812187257300A09FE5 /* Extensions.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		F142018D218A02AC00A09FE5 /* ZoomSegue */ = {
+			isa = PBXGroup;
+			children = (
+				F142018E218A02E200A09FE5 /* ZoomSegue.swift */,
+			);
+			path = ZoomSegue;
 			sourceTree = "<group>";
 		};
 		FE7D4784E4E3C9CD7512D446 /* Pods */ = {
@@ -213,6 +233,11 @@
 				TargetAttributes = {
 					F142010021843B0500A09FE5 = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -277,15 +302,19 @@
 				F14201242185A1E500A09FE5 /* TableViewCell.swift in Sources */,
 				F142010721843B0500A09FE5 /* ViewController.swift in Sources */,
 				F142011F21849A6500A09FE5 /* HtmlParse.swift in Sources */,
+				F142018F218A02E200A09FE5 /* ZoomSegue.swift in Sources */,
 				F142011B2184463000A09FE5 /* WebService.swift in Sources */,
 				F142012A2185B2EB00A09FE5 /* HtmlSource.swift in Sources */,
 				F1420184218743EE00A09FE5 /* DataModel.swift in Sources */,
 				F14201272185B1D000A09FE5 /* ListViewModel.swift in Sources */,
 				F14201822187257300A09FE5 /* Extensions.swift in Sources */,
 				F14201182184438300A09FE5 /* JsParser.swift in Sources */,
+				F142018C2189E1D400A09FE5 /* ImageModel.swift in Sources */,
 				F142012221859BCD00A09FE5 /* TableViewDataSource.swift in Sources */,
 				F142017F2186436B00A09FE5 /* DataSource.swift in Sources */,
+				F14201882189D0A400A09FE5 /* ImageDetailVC.swift in Sources */,
 				F142018621877D6200A09FE5 /* SearchQuery.swift in Sources */,
+				F142018A2189DEFC00A09FE5 /* ImageViewModel.swift in Sources */,
 				F142010521843B0500A09FE5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

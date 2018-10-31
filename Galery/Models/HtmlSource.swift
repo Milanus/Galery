@@ -9,8 +9,8 @@
 import UIKit
 
 struct HtmlSource {
-    var width:String?
-    var heigth:String?
+    var size:String?
+    var thumbnailPath:String?
     var imagePath:String?
-    var description:String?
+    var pageUrl:String?
 }
