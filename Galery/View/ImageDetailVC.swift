@@ -8,35 +8,42 @@
 
 import UIKit
 
-class ImageDetailVC: UIViewController {
+class ImageDetailVC: UIViewController, UIScrollViewDelegate{
 
     @IBOutlet weak var imageView: UIImageView!
     fileprivate var viewModel:ImageViewModel!
     var items:[String]!
     var position:Int!
+    @IBOutlet weak var scrollview: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = ImageViewModel()
+        viewModel = ImageViewModel(onImageLoaded: { (model, error) in
+            guard error == nil else {
+                return
+            }
+            if let image = model.image {
+                self.imageView.image = image
+            }
+        })
         self.loadImage(url: items[position])
         self.view.backgroundColor = UIColor.black
         self.addSwipeRecognizer()
+        self.scrollZoomInSettup()
         // Do any additional setup after loading the view.
     }
     
     @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
         if gesture.direction == .right {
-            print("right")
            self.swipe(direction: .right)
         }
         else if gesture.direction == .left {
-                print("left")
             self.swipe(direction: .left)
         }
     }
     
     @IBAction func shareAction(_ sender: Any) {
-        
+        shareImage()
     }
   
     @IBAction func doneAction(_ sender: Any) {
@@ -44,14 +51,7 @@ class ImageDetailVC: UIViewController {
     }
     
     fileprivate func loadImage(url:String) {
-        self.viewModel.populate(url: url) { (model, error) in
-            guard error == nil else {
-                return
-            }
-            if let image = model.image {
-                self.imageView.image = image
-            }
-        }
+        self.viewModel.populate(url: url)
     }
     fileprivate func addSwipeRecognizer () {
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
@@ -78,11 +78,28 @@ class ImageDetailVC: UIViewController {
         case left
     }
     
-    @IBAction func deInit(_ sender: Any) {
-         performSegue(withIdentifier: "deinitSegue", sender: nil)
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.imageView
     }
-
-    override func unwind(for unwindSegue: UIStoryboardSegue, towards subsequentVC: UIViewController) {
+    
+    func scrollZoomInSettup (){
+        self.scrollview.delegate = self
+        self.scrollview.maximumZoomScale = 4.0
+        self.scrollview.minimumZoomScale = 1.0
+        self.imageView.isUserInteractionEnabled = true
+    }
+    
+    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         
+    }
+    
+    func shareImage () {
+        if let image = viewModel.getImage() {
+            let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+            activityVC.popoverPresentationController?.sourceView = self.view
+            activityVC.popoverPresentationController?.sourceRect = .zero
+            self.present(activityVC, animated: true, completion: nil)
+            
+        }
     }
 }

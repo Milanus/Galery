@@ -112,7 +112,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultimage" translatesAutoresizingMaskIntoConstraints="NO" id="7Yl-rf-3G8">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zLR-C7-1mN">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </scrollView>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultimage" translatesAutoresizingMaskIntoConstraints="NO" id="7Yl-rf-3G8">
                                 <rect key="frame" x="10" y="114" width="394" height="738"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="192" translatesAutoresizingMaskIntoConstraints="NO" id="0yC-tx-rP5">
@@ -147,9 +150,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="8HV-bb-bQT" firstAttribute="trailing" secondItem="7Yl-rf-3G8" secondAttribute="trailing" constant="10" id="19W-oy-qTe"/>
+                            <constraint firstItem="zLR-C7-1mN" firstAttribute="leading" secondItem="8HV-bb-bQT" secondAttribute="leading" id="1H9-YG-7P8"/>
+                            <constraint firstItem="8HV-bb-bQT" firstAttribute="trailing" secondItem="zLR-C7-1mN" secondAttribute="trailing" id="6BM-xp-9Gw"/>
                             <constraint firstItem="0yC-tx-rP5" firstAttribute="leading" secondItem="8HV-bb-bQT" secondAttribute="leading" constant="30" id="77g-3c-Sas"/>
+                            <constraint firstItem="zLR-C7-1mN" firstAttribute="bottom" secondItem="8HV-bb-bQT" secondAttribute="bottom" id="II4-18-jG7"/>
                             <constraint firstItem="8HV-bb-bQT" firstAttribute="bottom" secondItem="7Yl-rf-3G8" secondAttribute="bottom" constant="10" id="Neh-6r-ivf"/>
                             <constraint firstItem="7Yl-rf-3G8" firstAttribute="leading" secondItem="8HV-bb-bQT" secondAttribute="leading" constant="10" id="WHE-Y7-XjQ"/>
+                            <constraint firstItem="zLR-C7-1mN" firstAttribute="top" secondItem="8HV-bb-bQT" secondAttribute="top" id="azt-M0-GXG"/>
                             <constraint firstItem="8HV-bb-bQT" firstAttribute="trailing" secondItem="0yC-tx-rP5" secondAttribute="trailing" constant="30" id="cY5-b6-qig"/>
                             <constraint firstItem="0yC-tx-rP5" firstAttribute="top" secondItem="8HV-bb-bQT" secondAttribute="top" constant="10" id="kb6-lD-9db"/>
                             <constraint firstItem="7Yl-rf-3G8" firstAttribute="top" secondItem="0yC-tx-rP5" secondAttribute="bottom" constant="10" id="sAg-Qp-lco"/>
@@ -158,12 +165,13 @@
                     </view>
                     <connections>
                         <outlet property="imageView" destination="7Yl-rf-3G8" id="BsL-3b-cx9"/>
+                        <outlet property="scrollview" destination="zLR-C7-1mN" id="RTu-6r-bfK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hge-bQ-lXq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="eu4-Yb-toR" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1052.1739130434783" y="15.401785714285714"/>
+            <point key="canvasLocation" x="1050.7246376811595" y="15.401785714285714"/>
         </scene>
     </scenes>
     <resources>

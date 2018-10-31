@@ -29,6 +29,7 @@
 		F142018A2189DEFC00A09FE5 /* ImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14201892189DEFC00A09FE5 /* ImageViewModel.swift */; };
 		F142018C2189E1D400A09FE5 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F142018B2189E1D400A09FE5 /* ImageModel.swift */; };
 		F142018F218A02E200A09FE5 /* ZoomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F142018E218A02E200A09FE5 /* ZoomSegue.swift */; };
+		F1420191218A1D2000A09FE5 /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1420190218A1D2000A09FE5 /* FileStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		F14201892189DEFC00A09FE5 /* ImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewModel.swift; sourceTree = "<group>"; };
 		F142018B2189E1D400A09FE5 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		F142018E218A02E200A09FE5 /* ZoomSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSegue.swift; sourceTree = "<group>"; };
+		F1420190218A1D2000A09FE5 /* FileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				F142017E2186436B00A09FE5 /* DataSource.swift */,
+				F1420190218A1D2000A09FE5 /* FileStorage.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				F14201272185B1D000A09FE5 /* ListViewModel.swift in Sources */,
 				F14201822187257300A09FE5 /* Extensions.swift in Sources */,
 				F14201182184438300A09FE5 /* JsParser.swift in Sources */,
+				F1420191218A1D2000A09FE5 /* FileStorage.swift in Sources */,
 				F142018C2189E1D400A09FE5 /* ImageModel.swift in Sources */,
 				F142012221859BCD00A09FE5 /* TableViewDataSource.swift in Sources */,
 				F142017F2186436B00A09FE5 /* DataSource.swift in Sources */,
