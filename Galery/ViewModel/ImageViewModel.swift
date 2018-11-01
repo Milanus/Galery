@@ -9,7 +9,7 @@
 import UIKit
 
 class ImageViewModel:Cacheble {
-    //checks if image is in local storage if not than it downloads 
+
     // representing image controller model
     fileprivate var imageModel:ImageModel!
     fileprivate var webservice:WebService!
@@ -61,14 +61,14 @@ class ImageViewModel:Cacheble {
     }
     
     func fileCreated(info: Storage) {
-//        callback setts image cache
+//        set local cache key url value file path
         cache[info.key] = info.value
     }
     
     func error(error: String) {
      
     }
-    // callback from file storage when it gets image data
+    // image is loaded from local storage
     func contentOfImage(imageData: Data?) {
         if let imageData = imageData {
             self.imageModel.image = UIImage(data: imageData)

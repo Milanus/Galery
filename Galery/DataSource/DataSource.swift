@@ -9,9 +9,8 @@
 import UIKit
 
 class DataSource {
-    // class that manage data for view model
-    // how in works all components are initialized witch have to live during the live cycle of the load of the images in tableview
-    // start is trigger makes request for json at url witch return json data
+    // class that manage data for viewModel
+    
     // html is parsed from json and than and data
     // images are download from parsed html fetch image
     // at last is called callback procesData 
@@ -22,7 +21,7 @@ class DataSource {
     fileprivate var htmlParser:HtmlParse!
     fileprivate var source:[HtmlSource] = [HtmlSource]()
     fileprivate var dataModel:DataModel!
-    // watch if observer is active
+    // watching observer activity
     fileprivate var isAlive = false
     // initializing
     init(urlPath:String ,complete:@escaping completeHandler) {
@@ -36,7 +35,7 @@ class DataSource {
     func start () {
         self.makeJSonRequest()
     }
-    // observer watches count of enities for downoload if count get to 0 observer will release all allocated objects
+    // observer watches count of entities for downoload if count get to 0 observer will release all allocated objects
     var repeatObserver = 0 {
         didSet {
             if repeatObserver > 0 {
@@ -64,7 +63,6 @@ class DataSource {
                     self?.htmlParser = HtmlParse()
                     self?.htmlParser.parseHtml(html: htmlFromJson.html, htmlHandler: { (sources, error) in
                         if let sources = sources {
-                            // get source data and triggers observer
                             self?.source = sources
                             //observer
                             self?.repeatObserver = sources.count
@@ -77,14 +75,12 @@ class DataSource {
     // fetches all images from url
     fileprivate func fetchImage () {
         let position = self.repeatObserver - 1
-        // check if image patch is nil
         guard let imagePath = self.source[position].thumbnailPath else {
             self.repeatObserver = position
             return
         }
-        // make the request for the image
+        // download image
         self.webService.dataRequest(path: imagePath) { [weak self] (data, error) in
-            // proces the image data and sets decrement the observer
             self?.procesData(imageDate: data, error: error?.description(), position: position)
             self?.repeatObserver = position
         }
@@ -95,13 +91,12 @@ class DataSource {
         self.repeatObserver = -1
         stop()
     }
-    // convert data to data model and call callback method
+    // convert data to data model
     fileprivate func procesData (imageDate:Data?, error:String?, position:Int) {
         guard error == nil  else {
             self.complete(dataModel,error)
             return
         }
-        // if data not nil then create data model
         if let data = imageDate {
             if let size = source[position].size {
                 dataModel.dimension = size
@@ -111,7 +106,7 @@ class DataSource {
             if let imagePath = source[position].imagePath {
                 dataModel.imagePath = imagePath
             }
-            //callback with data model
+            //creates data struct 
             self.complete(dataModel,nil)
         }
     }

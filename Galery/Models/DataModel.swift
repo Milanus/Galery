@@ -7,7 +7,7 @@
 //
 
 import UIKit
-// main model for tableview with image property
+// data model structer 
 struct DataModel {
     var title:String?
     var image:UIImage?

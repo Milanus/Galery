@@ -24,7 +24,6 @@ class TableViewDataSource<Cell:UITableViewCell,ViewModel> :NSObject,UITableViewD
         return items.count    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        print("cell identifier \(String(describing: self.cellIdentifier))")
         let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as! Cell
         let item = self.items[indexPath.row]
         self.configuration(cell,item)

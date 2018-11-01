@@ -17,7 +17,7 @@ class ViewController: UIViewController,UITableViewDelegate, UISearchBarDelegate 
     fileprivate var listViewModel:ListViewModel!
     //cell identifier
     fileprivate let celldentifier = "search_result"
-    //outlers
+    //outlets
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var imageTableView: UITableView!
     
@@ -25,16 +25,17 @@ class ViewController: UIViewController,UITableViewDelegate, UISearchBarDelegate 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // initializing view controller and calling populating cells when there are new images
+        // init view model
         listViewModel = ListViewModel()
-        // setting table view with data from download
+        // init data source
         dataSource = TableViewDataSource(cellIntetifier: celldentifier, items: self.listViewModel.sourceViewModel, configurationCell: { (cell, viewModel) in
             cell.descriptLabel.text = viewModel.description
             cell.dimensionLabel.text = viewModel.dimensions
             cell.mainImageView.image = viewModel.image
         })
-        // initial query and delegates
+        // deafult query
         self.populateListView(query: "iphone a ipad ")
+        // delegates
         imageTableView.delegate = self
         imageTableView.dataSource = dataSource
         searchBar.delegate = self
@@ -50,14 +51,14 @@ class ViewController: UIViewController,UITableViewDelegate, UISearchBarDelegate 
                 let urls = tableViewModels.map {
                     $0.imagePath!
                 }
-//                sending all urls to image view controller
+//                passing  urls  imageviewcontroller
                 controller.items = urls
                 controller.position = position
             }
             
         }
     }
-    // calls when search bar gets triggered
+    // calls when search is active 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard var searchText = searchBar.text  else {
             return

@@ -10,7 +10,7 @@ import Foundation
 
 extension String {
     // decode html string
-    // overriding initializer with html string
+
     init(htmlEncodedString: String) {
         self.init()
 //        converting html to data

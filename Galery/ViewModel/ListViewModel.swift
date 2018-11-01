@@ -14,7 +14,7 @@ class ListViewModel {
     fileprivate var dataSource :DataSource!
     fileprivate let path = "https://www.obrazky.cz/searchAjax?q=iphone%10ipad&s=&step=20&size=any&color=any&filter=true&from=11"
     
-// populate data of view model
+// populate data of viewmodel with image, dimension,
     func populateData (urlPath:String?, reloadHandler:@escaping (TableCellVieWModel,String?)->())  {
         
         if dataSource != nil {
@@ -24,7 +24,6 @@ class ListViewModel {
         }
         self.dataSource = DataSource(urlPath: urlPath ?? path, complete: { dataModel,error in
             DispatchQueue.main.async {
-//                calls on ui thread to reloead when image id download
                 reloadHandler(TableCellVieWModel(dataModel: dataModel),error)
             }
         })

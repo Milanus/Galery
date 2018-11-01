@@ -10,16 +10,14 @@ import UIKit
 import SwiftSoup
 // class parse html
 class HtmlParse {
-    // parameter html as data forma and callback
+    // parse html from string
     func parseHtml (html:String?, htmlHandler:@escaping ([HtmlSource]?,String?)->()) {
         do {
-            // check if string not nil
             if let html = html {
-                //  parsing html
                 let document:Document = try SwiftSoup.parse(html)
                 // elements with class image
                 let imageElements:Elements = try document.getElementsByClass("image")
-                // creating from html data for app
+                // mapping array of HtmlSorce model
                 let htmlModel:[HtmlSource] = imageElements.array().map { imageElement in
                     var htmlSource = HtmlSource()
                     htmlSource.pageUrl = try? imageElement.getElementsByClass("url").text()

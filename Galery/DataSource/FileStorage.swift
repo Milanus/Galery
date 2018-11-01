@@ -9,7 +9,6 @@
 import UIKit
 
 protocol Cacheble {
-    // callbacks from file storage
     // if fileExists
     func fileExist(filePath:String)
     // file is creates
@@ -21,7 +20,7 @@ protocol Cacheble {
 }
 
 class FileStorage {
-    // address of cache storage
+    // location of cache directory
      static var cachDir = NSSearchPathForDirectoriesInDomains(.cachesDirectory,.userDomainMask, true)[0]
      static var CACHEDIR = FileStorage.cachDir+"/fotoCache/"
     // file manager
@@ -32,7 +31,7 @@ class FileStorage {
     init() {
         self.manager = FileManager.default
     }
-    // creates cache directory if get called that why lazy
+    // creates cache directory
     lazy var createCacheDir:String? = {
         let cacheDir = FileStorage.cachDir+"/fotoCache/"
         let manager = FileManager.default
@@ -52,14 +51,14 @@ class FileStorage {
             cacheDelegate?.error(error: "bad url")
             return
         }
-        // here is called the lazy property
+        // cache folder path
         let filePath = self.createCacheDir! + url.lastPathComponent
         if (manager.fileExists(atPath: filePath)) {
             cacheDelegate?.fileExist(filePath: filePath)
         } else {
             do {
                 print("filePath \(filePath)")
-//                creates file and send callback
+//                creates file
                 try fileData.write(to: URL(fileURLWithPath: filePath))
                 cacheDelegate?.fileCreated(info:Storage(key: urlPath, value: filePath))
             } catch {
@@ -69,7 +68,7 @@ class FileStorage {
     }
     // fetch file if exists
     func fetchFile (filePath:String)  {
-        // gets file from location on storage
+        // load file from location on storage
         if manager.fileExists(atPath: filePath) {
            let data = manager.contents(atPath: filePath)
             cacheDelegate?.contentOfImage(imageData: data)

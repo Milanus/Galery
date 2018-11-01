@@ -7,7 +7,7 @@
 //
 
 import UIKit
-// data model for html parsed resources
+// html structer 
 struct HtmlSource {
     var size:String?
     var thumbnailPath:String?
