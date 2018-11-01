@@ -7,13 +7,14 @@
 //
 
 import UIKit
-
+// Representand view model for tableview
 class ListViewModel {
+    // contains all cell values
     fileprivate (set) var sourceViewModel:[TableCellVieWModel] = [TableCellVieWModel]()
     fileprivate var dataSource :DataSource!
     fileprivate let path = "https://www.obrazky.cz/searchAjax?q=iphone%10ipad&s=&step=20&size=any&color=any&filter=true&from=11"
     
-
+// populate data of view model
     func populateData (urlPath:String?, reloadHandler:@escaping (TableCellVieWModel,String?)->())  {
         
         if dataSource != nil {
@@ -23,14 +24,16 @@ class ListViewModel {
         }
         self.dataSource = DataSource(urlPath: urlPath ?? path, complete: { dataModel,error in
             DispatchQueue.main.async {
+//                calls on ui thread to reloead when image id download
                 reloadHandler(TableCellVieWModel(dataModel: dataModel),error)
             }
         })
+        // starting data source
         self.dataSource.start()
 
     }
 }
-
+// table view cell viewmodel
 class TableCellVieWModel {
     let dimensions:String?
     var image:UIImage?
@@ -43,6 +46,7 @@ class TableCellVieWModel {
         self.description = description
         self.imagePath = imagePath
     }
+    // init from datamodel all values
     init (dataModel:DataModel) {
         self.dimensions = dataModel.dimension
         self.image = dataModel.image

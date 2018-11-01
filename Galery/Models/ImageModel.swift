@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+// image Model
 struct ImageModel {
     var image:UIImage?
 }

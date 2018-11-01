@@ -6,7 +6,8 @@
 //  Copyright © 2018 Milan Schon. All rights reserved.
 //
 
-
+ // error handling
+// a hade such bigg plans with error handling :((
 struct SessionError:Error {
     var errorType:NetworkError
     var errorMsg:String?

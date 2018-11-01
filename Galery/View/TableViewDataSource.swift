@@ -13,12 +13,13 @@ class TableViewDataSource<Cell:UITableViewCell,ViewModel> :NSObject,UITableViewD
     private var cellIdentifier:String!
     private var items:[ViewModel]!
     var configuration:(Cell,ViewModel) -> ()
-    
+    // init whit callback and cellitems
     init(cellIntetifier:String,items:[ViewModel], configurationCell:@escaping (Cell,ViewModel) ->()) {
         self.cellIdentifier = cellIntetifier
         self.items = items
         self.configuration = configurationCell
     }
+    //delegate methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count    }
     
@@ -29,14 +30,15 @@ class TableViewDataSource<Cell:UITableViewCell,ViewModel> :NSObject,UITableViewD
         self.configuration(cell,item)
         return cell
     }
-    
+    // adding item
     func addItem(model:ViewModel) {
         items.append( model)
     }
-    
+    //releasing all objects
     func releaseItems () {
         items.removeAll()
     }
+    //geting all items
     func getItems<ViewModel> () -> [ViewModel]{
         return self.items as! [ViewModel]
     }

@@ -12,13 +12,14 @@ class ZoomSegue: UIStoryboardSegue {
     override func perform() {
         scale()
     }
+    // we are scaling from original vc to new vc zoom in
     func scale () {
         let toVC = self.destination
         let fromVC = self.source
         
         let containerView = fromVC.view.superview
         let originCenter = fromVC.view.center
-        
+        //magic transformation of scale
         toVC.view.transform = CGAffineTransform(scaleX: 0.05, y: 0.05)
         toVC.view.center = originCenter
         
@@ -31,7 +32,7 @@ class ZoomSegue: UIStoryboardSegue {
         }
     }
 }
-
+//scaling back to original view controller zoom out
 class UnwindScaleSegue:UIStoryboardSegue {
     override func perform() {
         scale()

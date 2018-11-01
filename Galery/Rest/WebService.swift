@@ -18,6 +18,7 @@ struct WebService {
             handleRequest(nil,SessionError(errorType: .badURL, errorMsg: nil))
             return
         }
+        // all the url ssession nonsen here 
         let configuration = URLSessionConfiguration.ephemeral
         let session = URLSession(configuration: configuration)
         let task = session.dataTask(with: url)  { (data, response, error) in

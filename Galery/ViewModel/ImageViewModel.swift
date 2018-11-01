@@ -9,17 +9,16 @@
 import UIKit
 
 class ImageViewModel:Cacheble {
-    
-    
+    //checks if image is in local storage if not than it downloads 
+    // representing image controller model
     fileprivate var imageModel:ImageModel!
     fileprivate var webservice:WebService!
     fileprivate var cache:[String:String] = [String:String]()
     fileprivate var storage:FileStorage!
     fileprivate var onImageLoaded:imageLoaded!
     var shareUrl:String!
-    
+    // with callback
     init(onImageLoaded:@escaping imageLoaded) {
-        
         self.webservice = WebService()
         self.imageModel = ImageModel()
         self.storage = FileStorage()
@@ -27,19 +26,22 @@ class ImageViewModel:Cacheble {
         self.onImageLoaded = onImageLoaded
         self.storage.clearStorage()
     }
-    
+    // populate image view with data
     func populate (url:String) {
         self.shareUrl = url
+        // check if file exist in local storage if not than it will be downloaded
         if !self.checkIfFileExists(urlString: url) {
             self.webservice.dataRequest(path: url) {(imageData, error) in
                 guard error == nil else {
                     DispatchQueue.main.async {
+                        // error when
                         self.onImageLoaded(self.imageModel,error?.description())
                         self.imageModel.image = nil
                     }
                     return
                 }
                 if let data = imageData  {
+                    // send callback with downloaded data on main thread
                     self.storage.createFile(fileData: data, urlPath: url)
                     self.imageModel.image = UIImage(data: data)
                     DispatchQueue.main.async {
@@ -49,6 +51,7 @@ class ImageViewModel:Cacheble {
                 }
             }
         } else {
+            //fetching file from local storage
             storage.fetchFile(filePath: self.cache[url]!)
         }
     }
@@ -58,13 +61,14 @@ class ImageViewModel:Cacheble {
     }
     
     func fileCreated(info: Storage) {
+//        callback setts image cache
         cache[info.key] = info.value
     }
     
     func error(error: String) {
-        print("some error \(error)")
+     
     }
-    
+    // callback from file storage when it gets image data
     func contentOfImage(imageData: Data?) {
         if let imageData = imageData {
             self.imageModel.image = UIImage(data: imageData)
@@ -74,13 +78,14 @@ class ImageViewModel:Cacheble {
             }
         }
     }
+    // check if if file exists in cache
     fileprivate func checkIfFileExists (urlString:String) -> Bool {
         if cache[urlString] != nil {
             return true
         }
         return false
     }
-    
+    // get image for share
     func getImage() ->UIImage? {
         if checkIfFileExists(urlString: self.shareUrl) {
             if let imageData = storage.getFileFoShare(filePath: cache[self.shareUrl]!) {

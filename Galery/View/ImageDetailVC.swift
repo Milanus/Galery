@@ -9,15 +9,16 @@
 import UIKit
 
 class ImageDetailVC: UIViewController, UIScrollViewDelegate{
-
+    
     @IBOutlet weak var imageView: UIImageView!
     fileprivate var viewModel:ImageViewModel!
     var items:[String]!
     var position:Int!
     @IBOutlet weak var scrollview: UIScrollView!
-    
+    //loading images when download or takeng from local storage
     override func viewDidLoad() {
         super.viewDidLoad()
+        // with callback  must be because of strong reference and there is memory leak
         viewModel = ImageViewModel(onImageLoaded: {[weak self] (model, error) in
             guard error == nil else {
                 return
@@ -26,13 +27,15 @@ class ImageDetailVC: UIViewController, UIScrollViewDelegate{
                 self?.imageView.image = image
             }
         })
+        // adding swipe gesture and zoom
+        // hopefully zoom works on emulator test sucks
         self.loadImage(url: items[position])
         self.view.backgroundColor = UIColor.black
         self.addSwipeRecognizer()
         self.scrollZoomInSettup()
         // Do any additional setup after loading the view.
     }
-    
+    // handling swipe gesture
     @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
         if gesture.direction == .right {
            self.swipe(direction: .right)
@@ -43,16 +46,19 @@ class ImageDetailVC: UIViewController, UIScrollViewDelegate{
     }
     
     @IBAction func shareAction(_ sender: Any) {
+        // sharing image
         shareImage()
     }
   
     @IBAction func doneAction(_ sender: Any) {
+        //actuali not working onli added on test purpose
         self.dismiss(animated: true, completion: nil)
     }
-    
+    // loading image
     fileprivate func loadImage(url:String) {
         self.viewModel.populate(url: url)
     }
+    //init swipe gestures
     fileprivate func addSwipeRecognizer () {
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
         swipeLeft.direction = .left
@@ -61,18 +67,20 @@ class ImageDetailVC: UIViewController, UIScrollViewDelegate{
         swipeRight.direction = .right
         self.view.addGestureRecognizer(swipeRight)
     }
-    
+    //all swipe magic done here
+    // id swipped than check position if it s not last or first than move to next image download or take from cache dir
     fileprivate func swipe (direction:SwipperDirection) {
         let newposition = direction == .right ? (position - 1) : (position + 1)
         if newposition < items.count && newposition >= 0 {
             self.loadImagefromSwipe(newPosition: newposition)
         }
     }
+    // loading images from gesture
     fileprivate func loadImagefromSwipe(newPosition:Int) {
         self.loadImage(url: items[newPosition])
         self.position = newPosition
     }
-    
+    // some enum
     enum SwipperDirection {
         case right
         case left
@@ -81,7 +89,7 @@ class ImageDetailVC: UIViewController, UIScrollViewDelegate{
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.imageView
     }
-    
+    // max zoom should be working :D
     func scrollZoomInSettup (){
         self.scrollview.delegate = self
         self.scrollview.maximumZoomScale = 4.0
@@ -92,7 +100,7 @@ class ImageDetailVC: UIViewController, UIScrollViewDelegate{
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         
     }
-    
+    // sharing image 
     func shareImage () {
         if let image = viewModel.getImage() {
             let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)

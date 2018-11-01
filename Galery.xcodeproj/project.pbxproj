@@ -106,7 +106,6 @@
 			isa = PBXGroup;
 			children = (
 				F142010421843B0500A09FE5 /* AppDelegate.swift */,
-				F1420192218A46EE00A09FE5 /* CheckInternet.swift */,
 				F14201802187255900A09FE5 /* Utils */,
 				F142017D2186435100A09FE5 /* DataSource */,
 				F14201282185B29800A09FE5 /* Models */,
@@ -184,6 +183,7 @@
 		F14201802187255900A09FE5 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				F1420192218A46EE00A09FE5 /* CheckInternet.swift */,
 				F14201812187257300A09FE5 /* Extensions.swift */,
 			);
 			path = Utils;

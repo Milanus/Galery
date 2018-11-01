@@ -13,6 +13,7 @@ struct SearchQuery {
     init(params:SearchParms) {
         self.searchQuery = params
     }
+    // building query for request 
     var build:String? {
         var queryItems = [URLQueryItem]()
         var urlComponents = URLComponents(string: "https://www.obrazky.cz/searchAjax")
