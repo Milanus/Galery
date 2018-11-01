@@ -69,6 +69,7 @@ class ViewController: UIViewController,UITableViewDelegate, UISearchBarDelegate 
             //than populate the webview
            self.populateListView(query: searchText)
         }
+        self.searchBar.resignFirstResponder()
     }
     // populating data of datasource and reloading the table view
     fileprivate func populateListView (query:String) {
