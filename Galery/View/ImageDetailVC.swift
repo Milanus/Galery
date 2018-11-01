@@ -88,7 +88,7 @@ class ImageDetailVC: UIViewController, UIScrollViewDelegate{
     }
     // max zoom
     func scrollZoomInSettup (){
-        self.scrollview.delegate = self
+//        self.scrollview.delegate = self
         self.scrollview.maximumZoomScale = 4.0
         self.scrollview.minimumZoomScale = 1.0
         self.imageView.isUserInteractionEnabled = true
